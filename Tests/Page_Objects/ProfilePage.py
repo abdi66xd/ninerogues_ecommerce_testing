@@ -50,4 +50,22 @@ class ProfilePage:
     def get_address_line1_name_placeholder(self):
         return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
 
+    def get_address_line2_name_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line2_name).get_attribute("placeholder")
+
+    def get_city_name_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+
+    def get_state_province_name_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+
+    def get_postal_code_zipcode_name_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+
+    def get_phone_name_placeholder_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+
+    def get_country_region_name_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+
 
