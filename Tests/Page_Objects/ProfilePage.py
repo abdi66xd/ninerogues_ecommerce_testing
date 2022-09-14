@@ -14,6 +14,7 @@ class ProfilePage:
         self.phone_name = 'phone'
         self.country_region_name = 'country_region'
         self.save_button_css = "button[type='submit']"
+        self.selection_country_xpath = '//*[@id="country_region"]/option[1]'
 
     def enter_address1(self, address1):
         # self.driver.find_element(By.NAME, self.address_line1_name).clear()
@@ -54,18 +55,18 @@ class ProfilePage:
         return self.driver.find_element(By.NAME, self.address_line2_name).get_attribute("placeholder")
 
     def get_city_name_placeholder(self):
-        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+        return self.driver.find_element(By.NAME, self.city_name).get_attribute("placeholder")
 
     def get_state_province_name_placeholder(self):
-        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+        return self.driver.find_element(By.NAME, self.state_province_name).get_attribute("placeholder")
 
     def get_postal_code_zipcode_name_placeholder(self):
-        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+        return self.driver.find_element(By.NAME, self.postal_code_zipcode_name).get_attribute("placeholder")
 
     def get_phone_name_placeholder_placeholder(self):
-        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+        return self.driver.find_element(By.NAME, self.phone_name).get_attribute("placeholder")
 
-    def get_country_region_name_placeholder(self):
-        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
+    def get_country_region_name_text(self):
+        return self.driver.find_element(By.XPATH, self.selection_country_xpath).text
 
 

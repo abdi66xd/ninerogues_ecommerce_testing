@@ -26,7 +26,7 @@ class ProfileTest(unittest.TestCase):
         cls.driver.implicitly_wait(10)
         cls.driver.maximize_window()
 
-    def test_filling_profile(self):
+    def filling_profile(self):
         driver = self.driver
         self.driver.get("http://localhost:3000/login")
         time.sleep(2)
@@ -95,7 +95,8 @@ class ProfileTest(unittest.TestCase):
         profile.click_save_button()
         driver.refresh()
 
-    def validate_form(self):
+    def test_validate_form(self):
+        self.fill_form()
         driver = self.driver
         self.driver.get("http://localhost:3000/")
         home = HomePage(driver)
@@ -110,10 +111,12 @@ class ProfileTest(unittest.TestCase):
         dashboard.click_profile_option()
         profile = ProfilePage(driver)
         self.assertEqual(address_line1, profile.get_address_line1_name_placeholder())
-        self.assertEqual(address_line2, profile.get_address_line1_name_placeholder())
-        self.assertEqual(address_line1, profile.get_address_line1_name_placeholder())
-        self.assertEqual(address_line1, profile.get_address_line1_name_placeholder())
-        self.assertEqual(address_line1, profile.get_address_line1_name_placeholder())
+        self.assertEqual(address_line2, profile.get_address_line2_name_placeholder())
+        self.assertEqual(city, profile.get_city_name_placeholder())
+        self.assertEqual(state, profile.get_state_province_name_placeholder())
+        self.assertEqual(postalcode, profile.get_postal_code_zipcode_name_placeholder())
+        self.assertEqual(phone, profile.get_phone_name_placeholder_placeholder())
+        self.assertEqual(country, profile.get_country_region_name_text())
 
 
     @classmethod
