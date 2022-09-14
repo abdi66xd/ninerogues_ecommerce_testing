@@ -41,12 +41,13 @@ class ProfilePage:
         self.driver.find_element(By.NAME, self.phone_name).send_keys(phone)
 
     def enter_country(self, country):
-        selection = Select(self.find_element_by_name('country_region'))
-        select.select_by_value(country)
+        selection = Select(self.driver.find_element(By.NAME, 'country_region'))
+        selection.select_by_value(country)
 
     def click_save_button(self):
-        self.driver.find_elements(By.CSS_SELECTOR, self.save_button_css).click()
+        self.driver.find_element(By.CSS_SELECTOR, self.save_button_css).click()
 
-    def get_content_placeholders(self):
+    def get_address_line1_name_placeholder(self):
+        return self.driver.find_element(By.NAME, self.address_line1_name).get_attribute("placeholder")
 
 

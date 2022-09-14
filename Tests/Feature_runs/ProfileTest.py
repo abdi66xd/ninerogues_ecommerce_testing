@@ -40,6 +40,9 @@ class ProfileTest(unittest.TestCase):
         home.click_dashboard_option()
         time.sleep(2)
         dashboard = DashboardPage(driver)
+        driver.back()
+        driver.forward()
+        time.sleep(2)
         dashboard.click_profile_option()
         profile = ProfilePage(driver)
         profile.enter_address1(address_line1)
@@ -50,8 +53,19 @@ class ProfileTest(unittest.TestCase):
         profile.enter_phone(phone)
         profile.enter_country(country)
         profile.click_save_button()
-        placeholder_city = self.driver.findElement(By.NAME("city")).getAttribute("placeholder")
-        self.assertEqual(city, placeholder_city)
+        driver.refresh()
+        # Send it back to the home page and repeat the process to check the saved items
+        home = HomePage(driver)
+        time.sleep(2)
+        home.click_profile_icon()
+        home.click_dashboard_option()
+        time.sleep(2)
+        dashboard = DashboardPage(driver)
+        driver.back()
+        driver.forward()
+        time.sleep(2)
+        dashboard.click_profile_option()
+        self.assertEqual(address_line1, profile.get_address_line1_name_placeholder())
 
     @classmethod
     def tearDownClass(cls):
