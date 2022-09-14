@@ -18,3 +18,8 @@ ALTER USER testing_user CREATEDB;
 ALTER ROLE testing_user SUPERUSER;
 \q
 ```
+
+
+## Run tests
+
+#### Functional tests
