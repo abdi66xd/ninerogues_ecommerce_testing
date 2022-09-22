@@ -1,7 +1,4 @@
-from selenium.webdriver import ActionChains
-from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 
 
 class HomePage:
@@ -14,6 +11,7 @@ class HomePage:
         self.shop_text_css = "a[class='mt-2 text-base font-medium text-gray-500 hover:text-gray-900']"
         self.shop_collection_button_xpath = '//*[@id="root"]/div/div[3]/div[1]/div/div/div[2]/div/a'
         self.search_icon_xpath = '//*[@id="root"]/div/div[1]/div[2]/div/div[3]/nav/form/div/div/button'
+        self.shop_text_xpath = "//a[normalize-space()='Shop']"
 
     def get_success_message(self):
         return self.driver.find_element(By.XPATH, self.success_message_xpath).text
@@ -32,3 +30,6 @@ class HomePage:
 
     def click_shop_collection(self):
         self.driver.find_element(By.XPATH, self.shop_collection_button_xpath).click()
+
+    def click_shop_text(self):
+        self.driver.find_element(By.XPATH, self.shop_text_xpath).click()
