@@ -1,3 +1,5 @@
+from datetime import time
+
 from selenium import webdriver
 
 import shutil
@@ -46,7 +48,7 @@ class TestLogin(StaticLiveServerTestCase):
     def test_valid_login(self):
         self.driver.get(FRONTEND_URL + "login")
         login = LoginPage(self.driver)
-
+        time.sleep(2)
         login.enter_username(self.new_user.email)
         login.enter_password(valid_password)
         login.click_login_button()

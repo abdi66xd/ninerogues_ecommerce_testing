@@ -47,8 +47,8 @@ class TestShop(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.driver = cls.driver
-        #cls.driver.close()
-        #cls.driver.quit()
+        cls.driver.close()
+        cls.driver.quit()
 
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ phone = "(044)23-3035"
 country = "Peru"
 
 
-class ProfileTest(unittest.TestCase):
+class test_profile(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
