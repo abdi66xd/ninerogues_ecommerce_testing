@@ -1,15 +1,17 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
+from datetime import time
 
-from django.test import TestCase
+from selenium import webdriver
+
+import shutil
+from webdriver_manager.chrome import ChromeDriverManager
+
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from apps.user.models import UserAccount
 from core.settings import BASE_DIR
 from tests.feature_tests.constants import FRONTEND_URL
 from tests.Page_Objects.LoginPage import LoginPage
 from tests.Page_Objects.HomePage import HomePage
-from selenium.webdriver.chrome.service import Service
 
 # Data set to test
 valid_username = "abdiasalpire12+20@gmail.com"
@@ -18,53 +20,55 @@ invalid_username = "abdiasalpire12+1''@gmail.com"
 invalid_password = "never_used_password"
 
 
-class TestLogin(TestCase):
+class TestLogin(StaticLiveServerTestCase):
 
-    @classmethod
-    def setUpClass(cls):
+    port = 8000
+
+    def setUp(self):
         # cls.driver = webdriver.Chrome('../drivers/chromedriver.exe')
         driver_file = str(BASE_DIR) + '/tests/drivers/chromedriver_105'
 
-        cls.new_user = UserAccount.objects.create(
+        self.new_user = UserAccount.objects.create(
             email=valid_username,
             first_name='Firstname',
             last_name='Lastname',
         )
-        cls.new_user.set_password(valid_password)
-        cls.new_user.save()
+        self.new_user.set_password(valid_password)
+        self.new_user.save()
 
-        cls.driver = webdriver.Chrome(driver_file)
-        cls.driver.implicitly_wait(10)
-        cls.driver.maximize_window()
+        if shutil.which('chromedriver'):
+            self.driver = webdriver.Chrome()
+        else:
+            self.driver = webdriver.Chrome(ChromeDriverManager().install())
+
+        # cls.driver = webdriver.Chrome(driver_file)
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
 
     def test_valid_login(self):
-        driver = self.driver
         self.driver.get(FRONTEND_URL + "login")
-        time.sleep(5)
-        login = LoginPage(driver)
-
+        login = LoginPage(self.driver)
+        time.sleep(2)
         login.enter_username(self.new_user.email)
         login.enter_password(valid_password)
         login.click_login_button()
-        home = HomePage(driver)
+        home = HomePage(self.driver)
         success_message = home.get_success_message()
-        time.sleep(1500)
         self.assertEqual('Inicio de sesión con éxito', success_message)
 
-    # def test_invalid_login(self):
-    #     driver = self.driver
-    #     self.driver.get(FRONTEND_URL + "login")
-    #     time.sleep(5)
-    #     login = LoginPage(driver)
-    #     login.enter_username(invalid_username)
-    #     login.enter_password(invalid_password)
-    #     login.click_login_button()
-    #     home = HomePage(driver)
-    #     fail_message = home.get_success_message()
-    #     time.sleep(3)
-    #     self.assertEqual('Error al iniciar sesion. Intenta mas tarde', fail_message)
+    def test_invalid_login(self):
+        driver = self.driver
+        self.driver.get(FRONTEND_URL + "login")
+        login = LoginPage(driver)
+        login.enter_username(invalid_username)
+        login.enter_password(invalid_password)
+        login.click_login_button()
+        home = HomePage(driver)
+        fail_message = home.get_success_message()
+        self.assertEqual(
+            'No active account found with the given credentials', fail_message
+        )
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.close()
-        cls.driver.quit()
+    def tearDown(self):
+        self.driver.close()
+        self.driver.quit()

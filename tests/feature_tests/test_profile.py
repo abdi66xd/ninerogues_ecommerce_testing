@@ -1,8 +1,6 @@
 import time
 import unittest
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from tests.feature_tests.test_login import LoginTest
 from tests.feature_tests.constants import FRONTEND_URL
 from tests.Page_Objects.DashboardPage import DashboardPage
 from tests.Page_Objects.HomePage import HomePage
@@ -19,7 +17,7 @@ phone = "(044)23-3035"
 country = "Peru"
 
 
-class ProfileTest(unittest.TestCase):
+class test_profile(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):

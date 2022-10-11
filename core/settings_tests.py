@@ -1,14 +1,13 @@
 from .settings import *
 
-ALLOWED_HOSTS = ['127.0.0.1', '.localhost']
-os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = 'localhost:8000'
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 TEMPLATES[0].update(
     {
         'DIRS': [
             os.path.join(BASE_DIR, 'build'),
             os.path.join(BASE_DIR, 'build', 'static'),
-            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'static'),
         ]
     }
 )
