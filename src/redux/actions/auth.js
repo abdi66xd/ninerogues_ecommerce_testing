@@ -86,7 +86,7 @@ export const signup = (first_name, last_name, email, password, re_password) => a
                 type: SIGNUP_SUCCESS,
                 payload: res.data
             });
-            dispatch(setAlert('Te enviamos un correo, por favor activa tu cuenta. Revisa el correo de spam','green'))
+            dispatch(setAlert('Estas registrado!','green'))
         } else {
             dispatch({
                 type: SIGNUP_FAIL
