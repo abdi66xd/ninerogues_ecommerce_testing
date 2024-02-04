@@ -59,7 +59,7 @@ const ImageGallery=({photo})=>{
                     {({ selected }) => (
                       <>
                         <span className="absolute inset-0 rounded-md overflow-hidden">
-                          <img src={photo} alt="" className="w-full h-full object-center object-cover" />
+                          <img src={`http://127.0.0.1:8000/${photo}`} alt="" className="w-full h-full object-center object-cover" />
                         </span>
                         <span
                           className={classNames(
@@ -79,7 +79,7 @@ const ImageGallery=({photo})=>{
               {product && product.images.map((image) => (
                 <Tab.Panel key={image.id}>
                   <img
-                    src={photo}
+                    src={`http://127.0.0.1:8000/${photo}`}
                     alt=""
                     className="w-full h-full object-center object-cover sm:rounded-lg"
                   />
